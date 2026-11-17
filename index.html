@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>thanh duc</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&display=swap">
+<style>
+*{box-sizing:border-box;margin:0}
+html,body{height:100%}
+body{background:#1a1413 center/cover no-repeat;color:#fff;font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;overflow:hidden}
+#bgv{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+body::before{content:"";position:fixed;inset:0;background:linear-gradient(rgba(0,0,0,.15),rgba(0,0,0,.45));z-index:-1}
+
+/* Màn hình click để vào */
+#enter{position:fixed;inset:0;z-index:10;display:grid;place-items:center;background:rgba(0,0,0,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);cursor:pointer;transition:opacity .9s,visibility .9s,backdrop-filter .9s}
+#enter.out{opacity:0;visibility:hidden;backdrop-filter:blur(0);-webkit-backdrop-filter:blur(0)}
+#et{font-size:2.4rem;letter-spacing:.1em;animation:pulse 2.2s ease-in-out infinite}
+#et svg{display:block;width:96px;height:96px;filter:drop-shadow(0 0 10px rgba(255,255,255,.55)) drop-shadow(0 0 26px rgba(255,255,255,.25))}
+@keyframes pulse{50%{opacity:.3}}
+
+/* Nội dung */
+#card{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;padding:env(safe-area-inset-top) 20px env(safe-area-inset-bottom);text-align:center}
+#card>*{opacity:0;transform:translateY(18px) scale(.96);filter:blur(6px)}
+body.on #card>*{animation:in .8s cubic-bezier(.2,.8,.2,1) forwards;animation-delay:calc(var(--i)*.15s + .3s)}
+@keyframes in{to{opacity:1;transform:none;filter:none}}
+.neon{font-family:"Fredoka","Fredoka One","Baloo 2","Arial Rounded MT Bold",system-ui,sans-serif;font-weight:700;color:#fff;text-shadow:0 0 4px #fff,0 0 10px #fff,0 0 22px rgba(255,255,255,.75),0 0 44px rgba(255,255,255,.45)}
+h1{font-size:2.6rem;line-height:1.1;letter-spacing:.01em}
+h1 .neon{display:inline-block;animation:flick 5s infinite}
+@keyframes flick{0%,91%,95%,100%{opacity:1}92%{opacity:.75}93%{opacity:1}94%{opacity:.85}}
+
+/* Badge */
+.pill{display:flex;align-items:center;gap:2px;max-width:100%;padding:12px 16px;border-radius:999px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.14);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.b{position:relative;display:grid;place-items:center;width:34px;height:34px;padding:0;border:0;background:none;color:inherit;font:inherit;text-decoration:none;cursor:pointer;opacity:0;transform:scale(.3) rotate(-35deg);transition:scale .25s cubic-bezier(.3,1.6,.5,1),translate .25s}
+body.on .b{animation:pop .55s cubic-bezier(.3,1.6,.5,1) forwards;animation-delay:calc(1.3s + var(--k)*.09s)}
+@keyframes pop{to{opacity:1;transform:none}}
+.b:hover,.b:focus-visible{scale:1.3;translate:0 -3px;outline:none}
+.b:active{scale:.9}
+.b svg{width:28px;height:28px;fill:currentColor;filter:drop-shadow(0 0 6px currentColor)}
+.b img{width:28px;height:28px;border-radius:50%;object-fit:cover}
+.b::after{content:attr(data-t);position:absolute;bottom:135%;left:50%;translate:-50% 6px;padding:4px 9px;border-radius:8px;background:rgba(0,0,0,.75);font-size:.72rem;white-space:nowrap;opacity:0;pointer-events:none;transition:opacity .2s,translate .2s}
+.b:hover::after,.b:focus::after{opacity:1;translate:-50% 0}
+
+/* Lượt xem + vị trí */
+.meta{display:flex;gap:22px;font-size:.95rem;text-shadow:0 1px 8px rgba(0,0,0,.6)}
+.meta span{display:flex;align-items:center;gap:7px}
+.meta svg{width:20px;height:20px;fill:#fff}
+</style>
+</head>
+<body>
+<video id="bgv" autoplay muted loop playsinline></video>
+<audio id="au" loop></audio>
+
+<div id="enter" tabindex="0" role="button"><span id="et" class="neon"><svg id="lock" viewBox="0 0 100 100" aria-label="click"><defs><linearGradient id="lkS" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#f4f4f7"/><stop offset=".55" stop-color="#b7b8c2"/><stop offset="1" stop-color="#8d8e99"/></linearGradient><linearGradient id="lkB" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffd86a"/><stop offset="1" stop-color="#f29a14"/></linearGradient></defs><path d="M32 48V32a18 18 0 0 1 36 0v16" fill="none" stroke="url(#lkS)" stroke-width="9" stroke-linecap="round"/><rect x="18" y="44" width="64" height="48" rx="12" fill="url(#lkB)"/><rect x="18.5" y="44.5" width="63" height="47" rx="11.5" fill="none" stroke="#c77a0a" stroke-opacity=".5"/><path d="M26 52h48" stroke="#fff" stroke-opacity=".35" stroke-width="5" stroke-linecap="round"/><circle cx="50" cy="65" r="6.5" fill="#6b430a"/><rect x="47" y="67" width="6" height="14" rx="3" fill="#6b430a"/></svg></span></div>
+
+<main id="card">
+  <h1 style="--i:0"><span id="name" class="neon"></span></h1>
+  <div class="pill" id="badges" style="--i:1"></div>
+  <div class="meta" style="--i:2">
+    <span><svg viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 5C6 5 2 12 2 12s4 7 10 7 10-7 10-7-4-7-10-7zm0 11a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-2a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg><b id="views" style="font-weight:400">0</b></span>
+    <span><svg viewBox="0 0 24 24"><path d="M12 2a7 7 0 0 0-7 7c0 5 7 13 7 13s7-8 7-13a7 7 0 0 0-7-7zm0 9.5a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"/></svg><b id="loc" style="font-weight:400"></b></span>
+  </div>
+</main>
+
+<script>
+/* ===== SỬA THÔNG TIN Ở ĐÂY ===== */
+const C={
+  name:"thanh duc",
+  enter:"",            // để trống = hiện ổ khóa; điền chữ nếu muốn thay bằng chữ
+  location:"Ho Chi Minh city",
+  views:4494,              // số bắt đầu; mỗi lượt mở trang sẽ cộng thêm vào số này
+  bgImage:"",              // vd: "bg.jpg"
+  bgVideo:"bg.mp4",              // vd: "bg.mp4" (ưu tiên hơn ảnh)
+  music:"music.mp3",                // vd: "song.mp3" (tự phát sau khi click)
+  badges:[                 // href: link khi bấm vào badge (để trống = chỉ hiện tên)
+    {k:"verified",t:"Verified",c:"#1e90ff",href:""},
+    {k:"diamond",t:"Premium",c:"#a64dff",href:""},
+    {k:"star",t:"Early supporter",c:"#1fd186",href:""},
+    {k:"dollar",t:"Donater",c:"#13a95b",href:""},
+    {k:"bunny",t:"Bunny",c:"#9b8cff",href:""},
+    {k:"speed",t:"Fast",c:"#ff9800",href:""},
+    {k:"flame",t:"Hot",c:"#ff6a00",href:""},
+    {img:"badge1.png",t:"Custom badge 1",href:""},
+    {img:"badge2.png",t:"Custom badge 2",href:""}
+  ]
+};
+/* ================================= */
+
+const P=(n,R,r,o,cx=12,cy=12)=>Array.from({length:2*n},(_,i)=>{const a=(o+i*180/n)*Math.PI/180,d=i%2?R:r;return (cx+d*Math.cos(a)).toFixed(2)+","+(cy+d*Math.sin(a)).toFixed(2)}).join(" ");
+const seal=`<polygon points="${P(12,11,9.3,-90)}" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>`;
+const I={
+  verified:seal+'<path d="M7.6 12.3l3.8 3.4 5.2-6" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="2.3"/>',
+  diamond:'<path d="M5.5 1.5h13.2L23 7.6 12 22.6 1 7.6z"/><path d="M1 8.4h22M8.3 1.5L5.6 8.4M15.7 1.5l2.7 6.9M9.2 8.4L12 3.8l2.8 4.6M6.8 9.2L12 19.2l5.2-10" fill="none" stroke="#fff" stroke-opacity=".3" stroke-width="1.4"/>',
+  star:`<polygon points="${P(5,10,5.6,-126,12,12.8)}" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/>`,
+  dollar:seal+'<path d="M15.3 9.3C15 7.9 13.8 7.4 12.1 7.4C10.3 7.4 9.1 8.3 9.1 9.6C9.1 12.5 15.1 11.4 15.1 14.6C15.1 16 13.8 16.8 12 16.8C10.2 16.8 8.9 16.1 8.7 14.7M12.1 5.6V7.4M12 16.8V18.6" fill="none" stroke="#fff" stroke-opacity=".25" stroke-width="1.9"/>',
+  bunny:'<ellipse cx="8.4" cy="6.6" rx="2.6" ry="5.4" transform="rotate(-7 8.4 6.6)"/><ellipse cx="16" cy="6.6" rx="2.6" ry="5.4" transform="rotate(7 16 6.6)"/><path d="M5.4 17.6C5.4 14.5 8 12.6 12.4 12.6S19.4 14.5 19.4 17.6C19.4 20.6 17.6 22.7 12.4 22.7S5.4 20.6 5.4 17.6z"/><g fill="#fff" fill-opacity=".22"><ellipse cx="8.4" cy="6.9" rx="1" ry="3.5" transform="rotate(-7 8.4 6.9)"/><ellipse cx="16" cy="6.9" rx="1" ry="3.5" transform="rotate(7 16 6.9)"/><circle cx="9.6" cy="17.4" r=".7"/><circle cx="15.2" cy="17.4" r=".7"/><ellipse cx="12.4" cy="19.6" rx="1" ry=".75"/></g>',
+  speed:'<path d="M5.4 20.4A9.9 9.9 0 0 1 16.4 4.35M21.2 8.85A9.9 9.9 0 0 1 19.05 20.7" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/><path d="M21 5L14.7 15.8A3.3 3.3 0 1 1 10.1 11z"/>',
+  flame:'<path d="M12.4 1.4C12.6 5.5 19.7 8 19.7 15.4C19.7 19.7 16.4 22.9 12 22.9C7.4 22.9 2.5 20.2 2.5 15.2C2.5 12 4 9.9 5.2 8.2C5.6 9.8 6.2 11 7.4 11.6C7.2 7.4 9.6 3.8 12.4 1.4z"/><path d="M12 11.4C12.2 14 15.2 15 15.2 18C15.2 20 13.8 21 12 21C10 21 8.8 19.6 8.8 18C8.8 16.6 9.6 15.6 10.4 14.6C10.9 15.4 11.2 15.7 11.8 15.8C11.4 14 11.6 12.6 12 11.4z" fill="#000" fill-opacity=".14"/>'
+};
+const $=id=>document.getElementById(id);
+
+/* Đếm lượt xem thật bằng Abacus (miễn phí). Đổi ns thành chuỗi riêng của bạn, ví dụ tên domain */
+const CNT={ns:"thanhduc-linkinbio-2411",key:"views"};
+const viewsReady=(async()=>{
+  try{
+    let seen=null;try{seen=localStorage.getItem("viewed")}catch(e){}   // mỗi trình duyệt chỉ tính 1 lần
+    const r=await fetch(`https://abacus.jasoncameron.dev/${seen?"get":"hit"}/${CNT.ns}/${CNT.key}`);
+    const d=await r.json();
+    if(typeof d.value==="number"){C.views+=d.value;try{localStorage.setItem("viewed","1")}catch(e){}}
+  }catch(e){}   // lỗi mạng hoặc bị chặn thì giữ số bắt đầu
+})();
+
+$("name").textContent=C.name;
+$("loc").textContent=C.location;
+if(C.enter)$("et").textContent=C.enter;
+if(C.bgImage)document.body.style.backgroundImage=`url("${C.bgImage}")`;
+if(C.bgVideo)$("bgv").src=C.bgVideo;
+if(C.music)$("au").src=C.music;
+
+C.badges.forEach((b,k)=>{
+  const el=document.createElement(b.href?"a":"button");
+  el.className="b";el.style.setProperty("--k",k);el.dataset.t=b.t;el.setAttribute("aria-label",b.t);
+  if(b.href){el.href=b.href;el.target="_blank";el.rel="noopener"}
+  el.style.color=b.c||"#fff";
+  if(b.img){
+    const im=new Image();im.src=b.img;im.alt=b.t;
+    im.onerror=()=>{el.style.display="none"};   // ẩn nếu chưa có ảnh
+    el.appendChild(im);
+  }else el.innerHTML=`<svg viewBox="0 0 24 24">${I[b.k]}</svg>`;
+  $("badges").appendChild(el);
+});
+
+function countUp(){
+  const t0=performance.now(),D=1600;
+  (function f(t){const p=Math.min((t-t0)/D,1),e=1-Math.pow(1-p,3);
+    $("views").textContent=Math.round(C.views*e).toLocaleString("en-US");
+    if(p<1)requestAnimationFrame(f)})(t0);
+}
+let entered=false;
+function enter(){
+  if(entered)return;entered=true;
+  $("enter").classList.add("out");
+  document.body.classList.add("on");
+  if(C.bgVideo)$("bgv").play().catch(()=>{});
+  if(C.music)$("au").play().catch(()=>{});
+  Promise.race([viewsReady,new Promise(r=>setTimeout(r,2500))]).then(()=>setTimeout(countUp,1100));
+}
+$("enter").addEventListener("click",enter);
+$("enter").addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" ")enter()});
+</script>
+</body>
+</html>
